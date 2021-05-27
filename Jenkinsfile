@@ -4,38 +4,35 @@ pipeline {
     tools {
         // Install the Maven version configured as "M3" and add it to the path.
         maven "M3"
-        jdk "JDK11"
+        jdk 'JDK11'
     }
 
     stages {
-	
-        stage('Compile') {
+        stage('Build') {
             steps {
                 // Get some code from a GitHub repository
-                git url: 'https://github.com/mattcol/movieapijava2021.git',
-                    branch: 'master'
-				// Run Maven on a Unix agent.
+                git url: 'https://github.com/matthcol/movieapijava2021.git',
+                    branch: 'dev'
+                // Run Maven on a Unix agent.
                 sh "mvn clean compile"
-            }
-        }
-		
-        stage('Tests') {
-            steps {
                 // To run Maven on a Windows agent, use
-                sh "mvn test"
+                // bat "mvn -Dmaven.test.failure.ignore=true clean package"
             }
-			post {
-				always {
-					junit '**/target/surefire-reports/TEST-*.xml'
-				}
-			}
         }
-		
-        stage('package') {
-            post {
-				sh "mvn -DskipTests package"
+        stage ('Test') {
+            steps {
+                sh "mvn test"
 
+            }
+            post {
+                always {
+                    junit '**/target/surefire-reports/TEST-*.xml'
                 }
+            }
+        }
+        stage('Package') {
+            steps {
+                sh "mvn -DskipTests package"
             }
         }
     }
