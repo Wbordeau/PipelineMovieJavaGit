@@ -6,6 +6,9 @@ pipeline {
         maven "M3"
         jdk 'JDK11'
     }
+	parameters {
+		string(name: 'BRANCH', defaultValue: 'master', description: 'Git branch of the Java Project')
+	}
 
     stages {
         stage('Compile') {
