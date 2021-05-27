@@ -8,7 +8,7 @@ pipeline {
     }
 
     stages {
-        stage('Build') {
+        stage('Compile') {
             steps {
                 // Get some code from a GitHub repository
                 git url: 'https://github.com/matthcol/movieapijava2021.git',
