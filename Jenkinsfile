@@ -13,7 +13,7 @@ pipeline {
             steps {
                 // Get some code from a GitHub repository
                 git url: 'https://github.com/mattcol/movieapijava2021.git',
-                    branch: 'dev'
+                    branch: 'master'
 				// Run Maven on a Unix agent.
                 sh "mvn clean compile"
             }
